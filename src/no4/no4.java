@@ -3,6 +3,7 @@ package no4;
 import no3.Mahasiswa;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,41 +21,48 @@ public class no4 {
         Scanner inputKelas = new Scanner(System.in);
         Scanner inputTglMasuk = new Scanner(System.in);
 
-        for(int i = 0; i < jmlMahasiswa; i++){
+        for (int i = 0; i < jmlMahasiswa; i++) {
 
-            int randomInt = (int)(Math.random() * 100 + 1);
+            int randomInt = (int) (Math.random() * 100 + 1);
             int id = randomInt;
 
-            System.out.print("Masukkan Nama Mahasiswa ke " + (i+1) + " : ");
+            System.out.print("Masukkan Nama Mahasiswa ke " + (i + 1) + " : ");
             String nama = inputNama.nextLine();
 
-            System.out.print("Masukkan Kelas Mahasiswa ke " + (i+1) + " : ");
+            System.out.print("Masukkan Kelas Mahasiswa ke " + (i + 1) + " : ");
             String kelas = inputKelas.nextLine();
 
-            System.out.print("Masukkan Tanggal Masuk Mahasiswa ke " + (i+1) + " : ");
+            System.out.print("Masukkan Tanggal Masuk Mahasiswa ke " + (i + 1) + " : ");
             int tglMasuk = inputTglMasuk.nextInt();
 
 
-            mahasiswaList.add(new Mahasiswa(id,nama, kelas, tglMasuk));
+            mahasiswaList.add(new Mahasiswa(id, nama, kelas, tglMasuk));
         }
 
-        MahasiswaLinkedList mList = new MahasiswaLinkedList();
-        for(int i = 0; i < mahasiswaList.size(); i++){
+        LinkedList mList = new LinkedList();
+        for (int i = 0; i < mahasiswaList.size(); i++) {
             mList.addFirst(mahasiswaList.get(i));
         }
 
+        System.out.println("\n");
+
         System.out.println("=== Print All Data Mahasiswa ===");
-        mList.printList();
+        mList.forEach(System.out::println);
 
         System.out.println("=== Size Data Mahasiswa ===");
-        System.out.println(mList.getSize());
+        System.out.println(mList.size());
 
-        System.out.println("=== Print Data Mahasiswa Setelah Remove ===");
-        mList.removeFirst();
-        mList.printList();
+        Scanner inputanIndex = new Scanner(System.in);
+        System.out.println("Masukkan Index Mahasiswa yang akan dihapus: ");
+        int index = inputanIndex.nextInt();
 
-        System.out.println("=== Size Data Mahasiswa Setelah Remove ===");
-        System.out.println(mList.getSize());
+        if(index > mList.size()){
+            System.out.println("Index yang anda masukkan tidak ada");
+        }else{
+            mList.remove(index);
+            System.out.println("=== Print Data Mahasiswa Setelah Remove ===");
+            mList.forEach(System.out::println);
+        }
 
         return;
     }
